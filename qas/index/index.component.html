@@ -1,0 +1,16 @@
+<div class="container">
+  <app-navbar class="margin-20"></app-navbar>
+  <app-tabs class="margin-20"></app-tabs>
+  <section class="content">
+
+    <ng-container *ngIf="($state |async) as state">
+
+      {{state | json}}
+      {{state.name}} - {{state.id}}
+
+      <button (click)="a()">cc</button>
+    </ng-container>
+
+
+  </section>
+</div>
