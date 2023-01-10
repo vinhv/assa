@@ -1,0 +1,70 @@
+p {
+  margin-left: 500px;
+  color: red !important;
+}
+.pi.header-icon span {
+  position: absolute;
+  font-size: 0.8em;
+}
+
+:host ::ng-deep .qas-custom-acd {
+  .p-accordion-header-link {
+    border: none;
+    background-color: white !important;
+    // box-shadow: none !important;
+    // box-shadow: 0 0 0 0.1rem #a6d5fa !important;
+    padding: 24px 0;
+
+  }
+
+  .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus{
+    box-shadow: 0 0 0 0.1rem #a6d5fa !important;
+
+  }
+
+  .p-accordion-content {
+    border: none;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* or 150% */
+
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    letter-spacing: 0.2px;
+
+    color: #231f20;
+    padding: 10px 48px;
+  }
+
+  .p-accordion-tab {
+    border-bottom: 2px solid #e6e7e8;
+
+   
+  }
+
+  .p-accordion-toggle-icon {
+    margin-right: 30.9px !important;
+    color: #939597;
+  }
+
+  .header-content {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 26px;
+    /* or 144% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.5px;
+
+    /* Title Header */
+
+    color: #231f20;
+  }
+}
