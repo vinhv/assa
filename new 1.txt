@@ -1,0 +1,135 @@
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { AppContextService } from '../../services/app-context.service';
+
+interface page {
+  index: number
+  originalIndex: number
+}
+
+@Component({
+  selector: 'app-paginator',
+  template: `
+    <div  *ngIf="!!total">
+      <ng-container *ngFor="let item of leftPages">
+        <span (click)="selectPage(item.index)" class="page" [class.active]='selected == item.originalIndex'>{{item.index + 1}}</span>
+      </ng-container>
+
+      <ng-container *ngIf="isShowLeftDot">
+        <span>...</span>
+      </ng-container>
+
+      <ng-container *ngFor="let item of middlePages">
+           <span (click)="selectPage(item.index)" class="page" [class.active]='selected == item.originalIndex'>{{item.index +1}}</span>
+      </ng-container>
+
+      <ng-container *ngIf="isShowRightDot">
+        <span>...</span>
+      </ng-container>
+
+      <ng-container *ngFor="let item of rightPages">
+        <span (click)="selectPage(item.index)" class="page" [class.active]='selected == item.originalIndex'>{{item.index+ 1}}</span>
+      </ng-container>
+    </div>
+  `,
+  styleUrls: ['./paginator.component.scss',
+
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class PaginatorComponent implements OnInit {
+
+  @Input() total: any
+
+  // bat dau tu 0 nhe
+  @Input() selected: any
+  pages: number[] = []
+  leftPages: page[] = []
+  middlePages: page[] = []
+  rightPages: page[] = []
+  isShowLeftDot = false
+  isShowRightDot = false
+  constructor(private appContext: AppContextService) {
+
+  }
+
+  ngOnInit(): void {
+    for (let i = 0; i <= this.total; i++) {
+      this.pages.push(i)
+    }
+    this.initPages()
+  }
+
+  initPages() {
+    this.leftPages = []
+    this.rightPages = []
+    this.isShowLeftDot = false;
+    this.isShowRightDot = false;
+    const length = this.pages.length;
+    this.middlePages = [...this.pages.map(item => { return { index: item, originalIndex: item } })]
+    if (this.pages.length > 3) {
+      const leftIndex = this.selected - 2;
+      const rightIndex = this.selected + 3;
+
+      this.middlePages = [...this.get2Item(leftIndex, this.selected, this.pages), ...this.get2Item(this.selected + 1, rightIndex - 1, this.pages)]
+
+      if (leftIndex > 0) {
+        this.leftPages.push({
+          originalIndex: this.pages[0],
+          index: this.pages[0]
+        });
+        if (leftIndex > 1) this.isShowLeftDot = true;
+      }
+      if (length - rightIndex > 0) {
+        this.rightPages.push({
+          originalIndex: this.pages[length - 1],
+          index: this.pages[length - 1]
+        });
+        if (length - rightIndex > 1) this.isShowRightDot = true;
+      }
+    }
+  }
+
+  get2Item(start: number, end: number, pages: number[]): page[] {
+    const arr: page[] = []
+    for (let i = start; i <= end; i++) {
+      if (pages[i]) {
+        arr.push({
+          originalIndex: i,
+          index: pages[i]
+        })
+      }
+    }
+    return arr;
+  }
+
+  selectPage(index: number) {
+    if (this.selected == index) return
+    console.log(index)
+    this.selected = index - 1;
+    this.initPages()
+    this.appContext.onPageChange(index);
+  }
+}
+
+@import "src/styles";
+
+.page {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.2px;
+  color: #939597;
+  padding: 2px 12px;
+  cursor: pointer;
+}
+
+.active {
+  color: #ff671f !important;
+  border-right: 1px solid #ff671f !important;
+  border-left: 1px solid #ff671f !important;
+}
+
+
+
