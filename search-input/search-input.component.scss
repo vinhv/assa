@@ -1,0 +1,20 @@
+span {
+  .qa-clear {
+    right: 0.5rem;
+    color: #6c757d;
+    cursor: pointer;
+  }
+
+  .pi-search {
+    cursor: pointer;
+  }
+
+  .qa-clear:hover,
+  .pi-search:hover {
+    color: #1a364e;
+  }
+
+  input {
+    padding-right: 2rem !important;
+  }
+}
