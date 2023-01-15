@@ -1,0 +1,8 @@
+<form [formGroup]="search" (ngSubmit)="submit()">
+  <span class="p-input-icon-left custom-search" >
+    <i class="pi pi-search custom-search__search" (click)="submit()"></i>
+    <i class="pi pi-times custom-search__clear" [class.custom-search__active]="dInput.value" (click)="dInput.value=''"></i>
+    <input [style.width]="_width" [style.height]="_height" [placeholder]='placeholder' type="text"
+      class="p-inputtext custom-search__input" formControlName="searchInput" #dInput/>
+  </span>
+</form>
